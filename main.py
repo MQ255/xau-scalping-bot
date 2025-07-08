@@ -1,15 +1,19 @@
-import time
 from ai_signal import generate_signal
-from send_telegram import send_telegram_message
+import time
 
-while True:
-    try:
-        signal = generate_signal()
-        if signal:
-            send_telegram_message(signal)
-        else:
-            print("❌ لا توجد توصية مؤكدة حالياً.")
-    except Exception as e:
-        print("حدث خطأ:", e)
+def main():
+    signal = generate_signal()
+    
+    print("✅ التوصية الحالية:", signal)
+    
+    if signal == "BUY":
+        print("📈 توصية شراء مؤكدة للذهب.")
+    elif signal == "SELL":
+        print("📉 توصية بيع مؤكدة للذهب.")
+    elif signal is None:
+        print("❌ لا توجد توصية مؤكدة حالياً.")
+    elif "خطأ" in signal:
+        print("⚠️", signal)
 
-    time.sleep(300)  # كل 5 دقائق
+if __name__ == "__main__":
+    main()
